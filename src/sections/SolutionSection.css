@@ -1,35 +1,72 @@
-.sol {
+/* =========================================================
+   SolutionSection.css — Viewport-Fitted 3-Pillar Presentation
+   ========================================================= */
+
+.sol-section {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
   background: var(--bg-primary);
-  padding: var(--section-pad) 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-.sol-inner {
-  max-width: var(--content-width);
-  margin: 0 auto;
+.sol-container {
+  width: 100%;
+  max-width: 1280px;
+  height: 100%;
+  max-height: 100%;
+  padding: 2rem clamp(1.5rem, 3.5vw, 4rem);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* header */
+/* Header */
 .sol-header {
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
+}
+
+.sol-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
 }
 
 .sol-eyebrow {
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 1rem;
+}
+
+.sol-substep-pill {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
 }
 
 .sol-heading {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
   font-weight: 700;
   letter-spacing: -0.025em;
   line-height: 1.15;
   color: var(--text-primary);
-  max-width: 720px;
-  margin: 0 0 1.5rem 0;
+  max-width: 780px;
+  margin: 0 0 1rem 0;
 }
 
 .sol-pills {
@@ -41,60 +78,78 @@
 .sol-tech-pill {
   font-size: 0.75rem;
   font-weight: 500;
-  padding: 0.3rem 0.75rem;
+  padding: 0.25rem 0.7rem;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
-  letter-spacing: 0.02em;
 }
 
-/* cards */
-.sol-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+/* 3 Cards Grid: Desktop Side-by-Side */
+.sol-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  transition: all 0.4s var(--ease-smooth);
 }
 
 .sol-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
-  padding: 2.5rem;
-  transition: border-color 0.4s ease;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s var(--ease-smooth);
+  opacity: 0.85;
 }
 
-.sol-card:hover {
-  border-color: var(--border-medium);
+.sol-cards-grid.revealed .sol-card {
+  opacity: 1;
+  border-color: rgba(41, 151, 255, 0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+}
+
+.sol-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.sol-card-icon {
+  font-size: 1.1rem;
 }
 
 .sol-card-tag {
-  display: inline-block;
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 1rem;
 }
 
 .sol-card-title {
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   font-weight: 600;
   letter-spacing: -0.015em;
   color: var(--text-primary);
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 0.65rem 0;
+  line-height: 1.25;
 }
 
 .sol-card-body {
-  font-size: 1.0625rem;
-  line-height: 1.7;
+  font-size: 0.875rem;
+  line-height: 1.55;
   color: var(--text-secondary);
   margin: 0;
-  max-width: 680px;
 }
 
-@media (max-width: 768px) {
-  .sol-card { padding: 1.75rem; }
-  .sol-card-title { font-size: 1.25rem; }
+@media (max-width: 900px) {
+  .sol-cards-grid {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+    max-height: 60vh;
+  }
 }

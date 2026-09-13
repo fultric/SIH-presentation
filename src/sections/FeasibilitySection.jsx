@@ -1,9 +1,4 @@
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './FeasibilitySection.css'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const COLUMNS = [
   {
@@ -11,11 +6,11 @@ const COLUMNS = [
     icon: '⚡',
     title: 'Feasibility Analysis',
     items: [
-      'Ollama runs locally — no cloud infrastructure costs',
-      'BIS standards documents are publicly available',
-      'RAG frameworks and vector databases are mature, open-source technologies',
-      'Can be developed and demonstrated within hackathon timeline',
-      'Runs on standard hardware — no specialised GPU required for smaller models',
+      'Ollama runs locally — no recurring cloud API or infrastructure costs',
+      'BIS standards documents and portals are publicly accessible resources',
+      'RAG frameworks and vector embeddings are mature open-source technologies',
+      'Working prototype can be developed and showcased within hackathon timeline',
+      'Runs on standard hardware — no specialized datacenter GPU needed for small models',
     ],
   },
   {
@@ -23,11 +18,11 @@ const COLUMNS = [
     icon: '⚠️',
     title: 'Potential Challenges',
     items: [
-      'Document ingestion — converting diverse BIS formats into a searchable corpus',
-      'LLM accuracy — ensuring answers are faithful to source documents',
-      'Response latency — local inference speed on consumer hardware',
-      'Data freshness — keeping the knowledge base updated with revised standards',
-      'Coverage — ensuring comprehensive indexing of relevant BIS standards',
+      'Document ingestion — converting diverse, non-uniform BIS document formats',
+      'LLM hallucination risk — ensuring generated answers are 100% faithful to source',
+      'Inference latency — response speeds on consumer-grade laptop processors',
+      'Corpus currency — keeping the knowledge base refreshed as standards update',
+      'Coverage — indexing large volumes of specialized engineering standards',
     ],
   },
   {
@@ -35,58 +30,34 @@ const COLUMNS = [
     icon: '🛡️',
     title: 'Mitigation Strategies',
     items: [
-      'RAG inherently reduces hallucination by grounding answers in retrieved documents',
-      'Source citations let users verify every AI-generated answer',
-      'Ollama supports multiple model sizes — trade accuracy for speed as needed',
-      'Modular document pipeline allows incremental updates',
-      'Chunking strategies optimised for the structure of standards documents',
+      'RAG architecture directly eliminates hallucination by grounding answers in citations',
+      'Verifiable source references empower judges and users to validate all outputs',
+      'Ollama supports multiple quantized model sizes to balance accuracy with speed',
+      'Modular document processing pipeline enables scheduled incremental ingestion',
+      'Targeted semantic chunking optimized specifically for regulatory clause structures',
     ],
   },
 ]
 
-export default function FeasibilitySection() {
-  const sectionRef = useRef(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.feas-eyebrow', {
-        opacity: 0, y: 20, duration: 0.8,
-        scrollTrigger: { trigger: '.feas-header', start: 'top 80%' },
-      })
-      gsap.from('.feas-heading', {
-        opacity: 0, y: 30, duration: 1,
-        scrollTrigger: { trigger: '.feas-header', start: 'top 78%' },
-      })
-
-      gsap.utils.toArray('.feas-col').forEach((col, i) => {
-        gsap.from(col, {
-          opacity: 0,
-          y: 50,
-          duration: 0.85,
-          delay: i * 0.12,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: col,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-        })
-      })
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [])
+export default function FeasibilitySection({ subStep = 0 }) {
+  const isRevealed = subStep >= 1
 
   return (
-    <section className="feas" ref={sectionRef}>
-      <div className="feas-inner">
+    <section className="feas-section">
+      <div className="feas-container">
         <div className="feas-header">
-          <p className="feas-eyebrow">Feasibility &amp; Viability</p>
-          <h2 className="feas-heading">Proposed analysis for implementation</h2>
+          <div className="feas-badge-group">
+            <span className="feas-eyebrow">Feasibility &amp; Viability</span>
+            <span className="feas-substep-pill">
+              {subStep === 0 ? 'Stage 1 · Overview' : 'Stage 2 · Detailed Matrix'}
+            </span>
+          </div>
+          <h2 className="feas-heading">Proposed Analysis &amp; Risk Mitigation</h2>
         </div>
 
-        <div className="feas-grid">
+        <div className={`feas-grid ${isRevealed ? 'revealed' : 'initial'}`}>
           {COLUMNS.map((col) => (
-            <div className={`feas-col feas-col--${col.accent}`} key={col.title}>
+            <div className={`feas-col feas-col--${col.accent} ${isRevealed ? 'active' : ''}`} key={col.title}>
               <div className="feas-col-head">
                 <span className="feas-col-icon">{col.icon}</span>
                 <h3 className="feas-col-title">{col.title}</h3>

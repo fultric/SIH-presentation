@@ -1,26 +1,65 @@
-.feas {
+/* =========================================================
+   FeasibilitySection.css — Viewport-Fitted Matrix Layout
+   ========================================================= */
+
+.feas-section {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
   background: var(--bg-primary);
-  padding: var(--section-pad) 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-.feas-inner {
-  max-width: var(--wide-width);
-  margin: 0 auto;
+.feas-container {
+  width: 100%;
+  max-width: 1280px;
+  height: 100%;
+  max-height: 100%;
+  padding: 2rem clamp(1.5rem, 3.5vw, 4rem);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.feas-header { margin-bottom: 3.5rem; }
+.feas-header {
+  margin-bottom: 1.75rem;
+}
+
+.feas-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+}
 
 .feas-eyebrow {
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 1rem;
+}
+
+.feas-substep-pill {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
 }
 
 .feas-heading {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
   font-weight: 700;
   letter-spacing: -0.025em;
   color: var(--text-primary);
@@ -29,42 +68,44 @@
 
 .feas-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
-}
-
-@media (min-width: 900px) {
-  .feas-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 .feas-col {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
-  padding: 2rem;
-  border-top: 2px solid transparent;
-  transition: border-color 0.3s ease;
+  padding: 1.5rem 1.4rem;
+  border-top: 3px solid transparent;
+  transition: all 0.35s var(--ease-smooth);
 }
-
-.feas-col:hover { border-color: var(--border-medium); }
 
 .feas-col--green { border-top-color: var(--accent-green); }
 .feas-col--amber { border-top-color: var(--accent-amber); }
 .feas-col--blue  { border-top-color: var(--accent); }
 
+.feas-grid.revealed .feas-col {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
 .feas-col-head {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--border-subtle);
 }
 
-.feas-col-icon { font-size: 1.25rem; }
+.feas-col-icon {
+  font-size: 1.15rem;
+}
 
 .feas-col-title {
-  font-size: 1.125rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0;
@@ -76,14 +117,14 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.55rem;
 }
 
 .feas-list li {
-  font-size: 0.9375rem;
-  line-height: 1.6;
+  font-size: 0.8125rem;
+  line-height: 1.45;
   color: var(--text-secondary);
-  padding-left: 1rem;
+  padding-left: 0.9rem;
   position: relative;
 }
 
@@ -91,7 +132,7 @@
   content: '';
   position: absolute;
   left: 0;
-  top: 0.6em;
+  top: 0.55em;
   width: 4px;
   height: 4px;
   border-radius: 50%;
@@ -102,6 +143,10 @@
 .feas-col--amber .feas-list li::before { background: var(--accent-amber); }
 .feas-col--blue  .feas-list li::before { background: var(--accent); }
 
-@media (max-width: 768px) {
-  .feas-col { padding: 1.5rem; }
+@media (max-width: 900px) {
+  .feas-grid {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+    max-height: 60vh;
+  }
 }

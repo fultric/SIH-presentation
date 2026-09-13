@@ -1,270 +1,348 @@
 import { useState, useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './TechnicalSection.css'
 
-gsap.registerPlugin(ScrollTrigger)
-
-const PIPELINE = [
-  { num: '01', title: 'User Query', desc: 'User asks a question about Indian Standards or BIS services.' },
-  { num: '02', title: 'Query Processing', desc: 'The system understands and processes the natural-language query.' },
-  { num: '03', title: 'Knowledge Base Search', desc: 'Searches the trusted BIS and Indian Standards knowledge base.' },
-  { num: '04', title: 'Document Retrieval', desc: 'Relevant documents and passages are retrieved from the corpus.' },
-  { num: '05', title: 'Context to Ollama', desc: 'Retrieved information is provided to the locally-running Ollama model.' },
-  { num: '06', title: 'Response Generation', desc: 'Ollama generates an answer grounded in the retrieved information.' },
-  { num: '07', title: 'Source-backed Answer', desc: 'The answer is displayed with supporting source references.' },
+const RAG_STEPS = [
+  {
+    num: '01',
+    icon: '👤',
+    title: 'User Query & Input Processing',
+    summary: 'User asks a question or scans a product label',
+    detail: 'The system understands and processes the natural-language query or captured product information, preparing it for semantic lookup.',
+  },
+  {
+    num: '02',
+    icon: '🔍',
+    title: 'Trusted BIS Knowledge Retrieval',
+    summary: 'Searches official BIS and Indian Standards corpus',
+    detail: 'The system performs semantic search across trusted Indian Standards documents, retrieving exact clauses, specifications, and requirements.',
+  },
+  {
+    num: '03',
+    icon: '🧠',
+    title: 'Grounded Generation & Source Citations',
+    summary: 'Ollama generates an answer with verifiable references',
+    detail: 'The retrieved information is passed to a locally-running Ollama model, generating an answer grounded strictly in source standards with citations.',
+  },
 ]
 
-export default function TechnicalSection() {
-  const sectionRef = useRef(null)
-  const pinRef = useRef(null)
+export default function TechnicalSection({ subStep = 0 }) {
   const [camState, setCamState] = useState('idle')
   const videoRef = useRef(null)
   const streamRef = useRef(null)
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const steps = gsap.utils.toArray('.pipe-step')
-      const dots = gsap.utils.toArray('.pipe-dot')
-      const fillEl = document.querySelector('.pipeline-fill')
-
-      /* ═══ Pinned RAG timeline ═══ */
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: pinRef.current,
-          start: 'top top',
-          end: '+=4500',
-          pin: true,
-          scrub: 0.6,
-          anticipatePin: 1,
-        },
-      })
-
-      /* Scene 1 — intro + phone fly-in */
-      tl.from('.tech-intro-block', { opacity: 0, y: 30, duration: 4 })
-        .from('.phone-wrap', { opacity: 0, x: 200, scale: 0.75, rotation: -8, duration: 7, ease: 'power3.out' }, '<1')
-        .from('.tech-sim-label', { opacity: 0, y: 10, duration: 3 }, '<3')
-
-      /* Scene 2 — question appears on phone */
-      tl.to('.scr-ask', { opacity: 1, duration: 2 })
-        .from('.chat-user', { opacity: 0, y: 10, duration: 3 }, '<0.5')
-
-      /* Step 1 */
-      tl.to(steps[0], { opacity: 1, x: 0, duration: 3 }, '<')
-        .to(dots[0], { background: '#2997ff', borderColor: '#2997ff', duration: 1 }, '<1')
-        .to(fillEl, { height: '14.28%', duration: 3, ease: 'none' }, '<')
-
-      /* Scene 3 — phone transitions to search, steps 2-4 */
-      tl.to('.scr-ask', { opacity: 0, duration: 1.5 })
-        .to('.scr-search', { opacity: 1, duration: 1.5 }, '<0.8')
-
-      for (let i = 1; i <= 3; i++) {
-        tl.to(steps[i], { opacity: 1, x: 0, duration: 3 })
-          .to(dots[i], { background: '#2997ff', borderColor: '#2997ff', duration: 1 }, '<1')
-          .to(fillEl, { height: `${((i + 1) / 7) * 100}%`, duration: 3, ease: 'none' }, '<')
-      }
-
-      tl.from('.search-line', { opacity: 0, y: 6, stagger: 1.5, duration: 2 }, '<-4')
-
-      /* Scene 4 — steps 5-6 */
-      for (let i = 4; i <= 5; i++) {
-        tl.to(steps[i], { opacity: 1, x: 0, duration: 3 })
-          .to(dots[i], { background: '#2997ff', borderColor: '#2997ff', duration: 1 }, '<1')
-          .to(fillEl, { height: `${((i + 1) / 7) * 100}%`, duration: 3, ease: 'none' }, '<')
-      }
-
-      /* Scene 5 — phone shows answer, step 7 */
-      tl.to('.scr-search', { opacity: 0, duration: 1.5 })
-        .to('.scr-answer', { opacity: 1, duration: 1.5 }, '<0.8')
-        .to(steps[6], { opacity: 1, x: 0, duration: 3 }, '<')
-        .to(dots[6], { background: '#2997ff', borderColor: '#2997ff', duration: 1 }, '<1')
-        .to(fillEl, { height: '100%', duration: 3, ease: 'none' }, '<')
-        .from('.answer-src', { opacity: 0, y: 8, stagger: 1.5, duration: 2 })
-
-      /* Scene 6 — hold + subtle phone zoom */
-      tl.to('.phone-wrap', { scale: 1.03, y: -8, duration: 8 })
-        .to({}, { duration: 6 })
-
-      /* ═══ Camera concept entrance (not pinned) ═══ */
-      gsap.from('.tech-cam-info', {
-        opacity: 0, y: 40, duration: 0.9,
-        scrollTrigger: { trigger: '.tech-cam-section', start: 'top 75%' },
-      })
-      gsap.from('.tech-cam-phone', {
-        opacity: 0, x: 80, scale: 0.92, duration: 1,
-        scrollTrigger: { trigger: '.tech-cam-section', start: 'top 70%' },
-      })
-    }, sectionRef)
-
-    return () => ctx.revert()
-  }, [])
-
-  /* camera */
+  // Camera permissions & cleanup
   const tryCamera = async () => {
     if (!navigator.mediaDevices?.getUserMedia) {
-      setCamState('unsupported'); return
+      setCamState('unsupported')
+      return
     }
     setCamState('requesting')
     try {
       const s = await navigator.mediaDevices.getUserMedia({ video: true })
       streamRef.current = s
-      if (videoRef.current) { videoRef.current.srcObject = s; videoRef.current.play().catch(() => {}) }
+      if (videoRef.current) {
+        videoRef.current.srcObject = s
+        videoRef.current.play().catch(() => {})
+      }
       setCamState('active')
-      setTimeout(() => { s.getTracks().forEach(t => t.stop()); setCamState('analyzed') }, 4000)
+      setTimeout(() => {
+        s.getTracks().forEach((t) => t.stop())
+        setCamState('analyzed')
+      }, 3500)
     } catch {
       setCamState('denied')
-      setTimeout(() => setCamState('fallback'), 1500)
+      setTimeout(() => setCamState('fallback'), 1200)
     }
   }
 
-  useEffect(() => () => { streamRef.current?.getTracks().forEach(t => t.stop()) }, [])
+  useEffect(() => {
+    return () => {
+      streamRef.current?.getTracks().forEach((t) => t.stop())
+    }
+  }, [])
 
-  /* ═══ JSX ═══ */
+  // subStep:
+  // 0: Initial RAG overview (all 3 steps visible, step 1 active)
+  // 1: Complete RAG flow active (all steps illuminated, answer + sources revealed on phone)
+  // 2: Camera product scanning concept view
+
+  const showCameraView = subStep >= 2
+  const isCompleteFlow = subStep >= 1
+
   return (
-    <section className="tech" ref={sectionRef}>
+    <section className="tech-section">
+      <div className="tech-container">
+        {!showCameraView ? (
+          /* ──── VIEW A: 3-Step RAG Architecture (Viewport-fitted) ──── */
+          <div className="tech-rag-view">
+            {/* Left Column: Intro + 3 Workflow Steps */}
+            <div className="tech-rag-left">
+              <div className="tech-badge-group">
+                <span className="tech-badge-proposed">Proposed RAG Architecture</span>
+                <span className="tech-substep-pill">
+                  {subStep === 0 ? 'Stage 1 · Overview' : 'Stage 2 · Execution Flow'}
+                </span>
+              </div>
 
-      {/* ──── Part 1: Pinned RAG + Phone ──── */}
-      <div className="tech-pinned" ref={pinRef}>
-        <div className="tech-layout">
-
-          {/* Left */}
-          <div className="tech-left">
-            <div className="tech-intro-block">
-              <span className="tech-badge-proposed">Proposed RAG Architecture</span>
-              <h2 className="tech-main-heading">How the system works</h2>
-              <p className="tech-main-sub">
-                A step-by-step look at the retrieval-augmented generation
-                pipeline that powers the BIS Intelligent Assistant.
+              <h2 className="tech-title">How the system works</h2>
+              <p className="tech-desc">
+                An intelligent retrieval-augmented generation workflow that connects user questions directly to verified Indian Standards.
               </p>
-            </div>
 
-            <div className="pipeline">
-              <div className="pipeline-track"><div className="pipeline-fill" /></div>
-              <div className="pipeline-steps">
-                {PIPELINE.map(s => (
-                  <div className="pipe-step" key={s.num}>
-                    <div className="pipe-dot" />
-                    <div className="pipe-body">
-                      <span className="pipe-num">{s.num}</span>
-                      <h4 className="pipe-title">{s.title}</h4>
-                      <p className="pipe-desc">{s.desc}</p>
+              {/* 3 Workflow Steps — Visible together on one screen */}
+              <div className="rag-steps-list">
+                {RAG_STEPS.map((step, idx) => {
+                  const isActive = isCompleteFlow || idx === 0
+                  const isHighlighted = isCompleteFlow && idx === 2
+                  return (
+                    <div
+                      key={step.num}
+                      className={`rag-step-card ${isActive ? 'active' : ''} ${
+                        isHighlighted ? 'highlighted' : ''
+                      }`}
+                    >
+                      <div className="rag-step-num-col">
+                        <span className="rag-step-num">{step.num}</span>
+                        {idx < 2 && <div className={`rag-step-line ${isActive ? 'active' : ''}`} />}
+                      </div>
+                      <div className="rag-step-content">
+                        <div className="rag-step-header">
+                          <span className="rag-step-icon">{step.icon}</span>
+                          <h3 className="rag-step-name">{step.title}</h3>
+                        </div>
+                        <p className="rag-step-summary">{step.summary}</p>
+                        <p className="rag-step-detail">{step.detail}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
+              </div>
+
+              {/* Tech Stack Footer Pills */}
+              <div className="tech-tags-row">
+                <span className="tech-tag">Ollama Local LLM</span>
+                <span className="tech-tag">RAG Architecture</span>
+                <span className="tech-tag">BIS Document Corpus</span>
+                <span className="tech-tag">Semantic Search</span>
               </div>
             </div>
-          </div>
 
-          {/* Right — phone */}
-          <div className="tech-right">
-            <div className="phone-wrap">
-              <div className="phone-frame">
-                <div className="phone-notch"><div className="phone-cam-dot" /></div>
-                <div className="phone-screen">
-                  <div className="ph-bar"><span>9:41</span><span className="ph-icons">●&thinsp;●&thinsp;●</span></div>
-
-                  {/* Screen: Ask */}
-                  <div className="scr scr-ask">
-                    <div className="scr-hdr">BIS Assistant</div>
-                    <div className="scr-body-ask">
-                      <div className="chat-user">Which BIS standard applies to packaged drinking water?</div>
-                    </div>
-                    <div className="scr-input">Ask about any standard…</div>
-                  </div>
-
-                  {/* Screen: Search */}
-                  <div className="scr scr-search">
-                    <div className="scr-hdr">BIS Assistant</div>
-                    <div className="scr-body-search">
-                      <div className="search-line"><span className="s-dot" />Searching knowledge base…</div>
-                      <div className="search-line"><span className="s-dot" />Retrieving relevant documents…</div>
-                      <div className="search-line"><span className="s-dot" />Reviewing source passages…</div>
-                      <div className="search-line"><span className="s-dot" />Preparing answer…</div>
-                    </div>
-                  </div>
-
-                  {/* Screen: Answer */}
-                  <div className="scr scr-answer">
-                    <div className="scr-hdr">BIS Assistant</div>
-                    <div className="scr-body-answer">
-                      <div className="chat-ai">
-                        Based on applicable BIS standards, packaged drinking water
-                        must comply with requirements covering microbiological,
-                        chemical, and physical parameters.
-                      </div>
-                      <div className="answer-srcs">
-                        <div className="answer-src">📄 Relevant BIS Document</div>
-                        <div className="answer-src">📄 Applicable Standard Reference</div>
-                      </div>
-                      <p className="answer-note">Verify against official BIS information.</p>
-                    </div>
-                  </div>
+            {/* Right Column: Smartphone Mockup showing synchronized live flow */}
+            <div className="tech-rag-right">
+              <div className="phone-mockup">
+                <div className="phone-notch">
+                  <div className="phone-speaker" />
+                  <div className="phone-camera-lens" />
                 </div>
-                <div className="phone-home" />
-              </div>
-            </div>
-            <p className="tech-sim-label">⚡ Simulated Demonstration — Not connected to live backend</p>
-          </div>
-        </div>
-      </div>
 
-      {/* ──── Part 2: Camera Concept ──── */}
-      <div className="tech-cam-section">
-        <div className="tech-cam-layout">
-          <div className="tech-cam-info">
-            <span className="tech-badge-proposed">Proposed image-based product identification workflow</span>
-            <h3 className="tech-cam-heading">Product scanning concept</h3>
-            <ol className="tech-cam-steps">
-              <li>User opens the camera</li>
-              <li>Grants camera permission</li>
-              <li>Captures a product image or label</li>
-              <li>System analyses visible product information</li>
-              <li>Searches relevant BIS knowledge base</li>
-              <li>Presents possible relevant standards</li>
-              <li>User verifies against official BIS information</li>
-            </ol>
+                <div className="phone-screen-inner">
+                  {/* Status Bar */}
+                  <div className="phone-status-bar">
+                    <span>9:41</span>
+                    <span className="phone-status-icons">●●● 5G 100%</span>
+                  </div>
 
-            {camState === 'idle' && <button className="cam-btn" onClick={tryCamera}>Try Camera Scan</button>}
-            {camState === 'requesting' && <p className="cam-msg">Requesting camera access…</p>}
-            {camState === 'active' && <p className="cam-msg cam-msg--ok">Camera active — analysing…</p>}
-            {camState === 'analyzed' && (
-              <div className="cam-result"><p className="cam-msg cam-msg--ok">✓ Analysis complete (simulated)</p>
-              <p className="cam-result-txt">Possible relevant standard identified. Verify against official BIS records.</p></div>
-            )}
-            {camState === 'denied' && <p className="cam-msg cam-msg--warn">Camera access denied — using simulated demo.</p>}
-            {camState === 'fallback' && (
-              <div className="cam-result"><p className="cam-msg cam-msg--ok">Simulated result displayed.</p>
-              <p className="cam-result-txt">In a live deployment, the system would analyse the captured image and search for relevant BIS standards.</p></div>
-            )}
-            {camState === 'unsupported' && <p className="cam-msg cam-msg--warn">Camera API unavailable. Use localhost or HTTPS.</p>}
-          </div>
+                  {/* Header */}
+                  <div className="phone-app-header">
+                    <span className="phone-app-title">BIS Intelligent Assistant</span>
+                    <span className="phone-app-status">● Ready</span>
+                  </div>
 
-          <div className="tech-cam-phone">
-            <div className="phone-frame phone-frame--sm">
-              <div className="phone-notch"><div className="phone-cam-dot" /></div>
-              <div className="phone-screen">
-                <div className="ph-bar"><span>9:41</span><span className="ph-icons">●&thinsp;●&thinsp;●</span></div>
-                <div className="cam-ui">
-                  {camState === 'active' ? (
-                    <video ref={videoRef} className="cam-feed" autoPlay playsInline muted />
-                  ) : (camState === 'analyzed' || camState === 'fallback') ? (
-                    <div className="cam-done">
-                      <div className="cam-done-icon">✓</div>
-                      <p>Product scanned</p>
-                      <div className="cam-done-card"><span>Relevant BIS Standard</span><span className="cam-tbc">To be confirmed</span></div>
+                  {/* Chat Content */}
+                  <div className="phone-chat-scroll">
+                    {/* Message 1: User Query */}
+                    <div className="phone-bubble phone-bubble-user">
+                      Which BIS standard applies to packaged drinking water?
                     </div>
-                  ) : (
-                    <div className="cam-vf">
-                      <div className="vf-corners"><span /><span /><span /><span /></div>
-                      <p className="vf-label">Point at product label</p>
+
+                    {/* Retrieval State Indicator */}
+                    <div className="phone-retrieval-status">
+                      <div className="retrieval-pulse" />
+                      <span>
+                        {isCompleteFlow
+                          ? '✓ 2 Relevant BIS standards retrieved'
+                          : 'Searching trusted BIS knowledge base…'}
+                      </span>
                     </div>
-                  )}
+
+                    {/* Message 2: Grounded AI Response */}
+                    <div className={`phone-bubble phone-bubble-ai ${isCompleteFlow ? 'visible' : ''}`}>
+                      <p>
+                        Packaged drinking water in India is governed by <strong>IS 14543:2016</strong>, which specifies rigorous physical, chemical, and microbiological parameters.
+                      </p>
+
+                      {/* Document Citation Cards */}
+                      <div className="phone-citations-group">
+                        <div className="phone-citation-card">
+                          <span className="cite-badge">Primary Standard</span>
+                          <span className="cite-code">IS 14543:2016</span>
+                          <span className="cite-desc">Packaged Drinking Water (Other than Natural Mineral Water)</span>
+                        </div>
+                        <div className="phone-citation-card">
+                          <span className="cite-badge">Cross-Reference</span>
+                          <span className="cite-code">IS 10500:2012</span>
+                          <span className="cite-desc">Drinking Water — Specification</span>
+                        </div>
+                      </div>
+
+                      <span className="phone-ai-footnote">
+                        * Grounded in official BIS specifications. Verify against official portal.
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Simulated Input Bar */}
+                  <div className="phone-input-bar">
+                    <span>Ask about Indian Standards…</span>
+                    <div className="phone-send-btn">↑</div>
+                  </div>
+
+                  <div className="phone-home-indicator" />
                 </div>
               </div>
-              <div className="phone-home" />
+
+              <div className="tech-sim-caption">
+                <span>⚡ Simulated Demonstration — Not connected to live AI backend</span>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          /* ──── VIEW B: Camera Product Scanning Concept (Viewport-fitted) ──── */
+          <div className="tech-camera-view">
+            {/* Left Column: 7 Workflow Steps + Interactive Trigger */}
+            <div className="tech-camera-left">
+              <div className="tech-badge-group">
+                <span className="tech-badge-proposed">Proposed image-based product identification workflow</span>
+                <span className="tech-substep-pill">Stage 3 · Multimodal Scan</span>
+              </div>
+
+              <h2 className="tech-title">Product Image Scanning Concept</h2>
+              <p className="tech-desc">
+                Proposed mobile workflow enabling consumers and industry inspectors to scan physical products, labels, or ISI marks for automated standards verification.
+              </p>
+
+              <ol className="cam-workflow-steps">
+                <li><span className="cw-step-num">1</span>User opens camera in the assistant</li>
+                <li><span className="cw-step-num">2</span>User grants camera permission</li>
+                <li><span className="cw-step-num">3</span>User captures product label or certification mark</li>
+                <li><span className="cw-step-num">4</span>System analyzes visible text and product markings</li>
+                <li><span className="cw-step-num">5</span>Assistant searches the relevant BIS knowledge base</li>
+                <li><span className="cw-step-num">6</span>Presents possible matching standards and services</li>
+                <li><span className="cw-step-num">7</span>User is prompted to verify against official BIS data</li>
+              </ol>
+
+              {/* Interactive Camera Trigger */}
+              <div className="cam-interactive-box">
+                {camState === 'idle' && (
+                  <button className="cam-action-btn" onClick={tryCamera}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                      <circle cx="12" cy="13" r="4"/>
+                    </svg>
+                    <span>Try Camera Scan</span>
+                  </button>
+                )}
+
+                {camState === 'requesting' && (
+                  <div className="cam-status-msg requesting">
+                    <span className="cam-spin" />
+                    <span>Requesting browser camera permission…</span>
+                  </div>
+                )}
+
+                {camState === 'active' && (
+                  <div className="cam-status-msg active">
+                    <span className="cam-pulse-dot" />
+                    <span>Camera stream active — analyzing product mark…</span>
+                  </div>
+                )}
+
+                {camState === 'analyzed' && (
+                  <div className="cam-result-card success">
+                    <div className="cam-result-header">
+                      <span className="cam-check">✓</span>
+                      <strong>Label Analysis Simulated</strong>
+                    </div>
+                    <p>Detected Product Type: Packaged Drinking Water</p>
+                    <p className="cam-citation">Applicable Standard: <strong>IS 14543:2016</strong></p>
+                    <small>Demonstration concept — verify against official BIS records.</small>
+                  </div>
+                )}
+
+                {camState === 'denied' && (
+                  <div className="cam-status-msg warning">
+                    <span>Camera permission declined — showing simulated fallback.</span>
+                  </div>
+                )}
+
+                {camState === 'fallback' && (
+                  <div className="cam-result-card fallback">
+                    <div className="cam-result-header">
+                      <span>ℹ️</span>
+                      <strong>Simulated Scan Fallback</strong>
+                    </div>
+                    <p>Demonstrates how the assistant maps captured product labels to BIS standards catalogs.</p>
+                  </div>
+                )}
+
+                {camState === 'unsupported' && (
+                  <div className="cam-status-msg error">
+                    <span>Camera API requires HTTPS or localhost environment.</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Right Column: Phone Mockup with Camera Viewfinder */}
+            <div className="tech-camera-right">
+              <div className="phone-mockup phone-mockup-cam">
+                <div className="phone-notch">
+                  <div className="phone-speaker" />
+                  <div className="phone-camera-lens" />
+                </div>
+
+                <div className="phone-screen-inner phone-screen-cam">
+                  <div className="phone-status-bar">
+                    <span>9:41</span>
+                    <span className="phone-status-icons">●●● 5G 100%</span>
+                  </div>
+
+                  <div className="cam-viewfinder-ui">
+                    {camState === 'active' ? (
+                      <video ref={videoRef} className="cam-live-video" autoPlay playsInline muted />
+                    ) : (
+                      <div className="cam-static-target">
+                        <div className="cam-bracket-tl" />
+                        <div className="cam-bracket-tr" />
+                        <div className="cam-bracket-bl" />
+                        <div className="cam-bracket-br" />
+                        <div className="cam-scan-line" />
+                        <div className="cam-target-label">
+                          <span>ALIGN PRODUCT LABEL OR ISI MARK</span>
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="cam-overlay-controls">
+                      <div className="cam-shutter-outer">
+                        <div className="cam-shutter-inner" />
+                      </div>
+                      <span className="cam-hint-text">
+                        {camState === 'active' ? 'Hold steady…' : 'Tap "Try Camera Scan" to test'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="phone-home-indicator" />
+                </div>
+              </div>
+
+              <div className="tech-sim-caption">
+                <span>⚡ Proposed workflow demonstration — no live OCR or backend binding</span>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )
