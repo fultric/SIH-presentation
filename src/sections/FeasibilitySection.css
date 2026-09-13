@@ -1,0 +1,107 @@
+.feas {
+  background: var(--bg-primary);
+  padding: var(--section-pad) 2rem;
+}
+
+.feas-inner {
+  max-width: var(--wide-width);
+  margin: 0 auto;
+}
+
+.feas-header { margin-bottom: 3.5rem; }
+
+.feas-eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.feas-heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.feas-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 900px) {
+  .feas-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.feas-col {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 2rem;
+  border-top: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.feas-col:hover { border-color: var(--border-medium); }
+
+.feas-col--green { border-top-color: var(--accent-green); }
+.feas-col--amber { border-top-color: var(--accent-amber); }
+.feas-col--blue  { border-top-color: var(--accent); }
+
+.feas-col-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.feas-col-icon { font-size: 1.25rem; }
+
+.feas-col-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.feas-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.feas-list li {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  padding-left: 1rem;
+  position: relative;
+}
+
+.feas-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+}
+
+.feas-col--green .feas-list li::before { background: var(--accent-green); }
+.feas-col--amber .feas-list li::before { background: var(--accent-amber); }
+.feas-col--blue  .feas-list li::before { background: var(--accent); }
+
+@media (max-width: 768px) {
+  .feas-col { padding: 1.5rem; }
+}

@@ -1,0 +1,100 @@
+.sol {
+  background: var(--bg-primary);
+  padding: var(--section-pad) 2rem;
+}
+
+.sol-inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+/* header */
+.sol-header {
+  margin-bottom: 4rem;
+}
+
+.sol-eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.sol-heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--text-primary);
+  max-width: 720px;
+  margin: 0 0 1.5rem 0;
+}
+
+.sol-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sol-tech-pill {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.3rem 0.75rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* cards */
+.sol-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sol-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 2.5rem;
+  transition: border-color 0.4s ease;
+}
+
+.sol-card:hover {
+  border-color: var(--border-medium);
+}
+
+.sol-card-tag {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.sol-card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem 0;
+}
+
+.sol-card-body {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 680px;
+}
+
+@media (max-width: 768px) {
+  .sol-card { padding: 1.75rem; }
+  .sol-card-title { font-size: 1.25rem; }
+}
