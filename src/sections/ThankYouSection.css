@@ -1,0 +1,309 @@
+/* =========================================================
+   ThankYouSection.css — Cinematic Final Scene
+   ========================================================= */
+
+.thankyou-section {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Ambient Backdrop Glow */
+.ty-ambient-glow {
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  max-width: 800px;
+  max-height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(41, 151, 255, 0.08) 0%, rgba(168, 85, 247, 0.04) 45%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: tyPulseGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes tyPulseGlow {
+  0%   { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+}
+
+/* Floating Particles */
+.ty-particles-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ty-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.3;
+  filter: blur(1px);
+}
+
+.p1 { width: 4px; height: 4px; top: 20%; left: 15%; animation: tyFloatP 12s infinite ease-in-out; }
+.p2 { width: 6px; height: 6px; top: 65%; left: 80%; animation: tyFloatP 15s infinite ease-in-out 2s; background: var(--accent-purple); }
+.p3 { width: 3px; height: 3px; top: 30%; right: 25%; animation: tyFloatP 9s infinite ease-in-out 4s; }
+.p4 { width: 5px; height: 5px; bottom: 25%; left: 30%; animation: tyFloatP 14s infinite ease-in-out 1s; background: var(--accent-green); }
+.p5 { width: 4px; height: 4px; top: 75%; right: 18%; animation: tyFloatP 11s infinite ease-in-out 3s; }
+
+@keyframes tyFloatP {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(15px, -25px); opacity: 0.6; }
+}
+
+/* Container */
+.thankyou-container {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 960px;
+  height: 100%;
+  max-height: 100%;
+  padding: 1.5rem clamp(1.2rem, 3vw, 2.5rem);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Status Pill */
+.ty-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  padding: 0.3rem 0.85rem;
+  border-radius: 30px;
+  margin-bottom: 1.25rem;
+}
+
+.ty-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  animation: sDotPulse 1.2s infinite;
+}
+
+.ty-badge-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+}
+
+.ty-badge-pill {
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: rgba(41, 151, 255, 0.12);
+  padding: 0.15rem 0.5rem;
+  border-radius: 12px;
+}
+
+/* Central Digital Core Visual */
+.ty-core-visual {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.ty-core-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(41, 151, 255, 0.35);
+}
+
+.ring-outer {
+  width: 80px;
+  height: 80px;
+  border-color: rgba(41, 151, 255, 0.25);
+  animation: tyRotateRing 20s linear infinite;
+}
+
+.ring-mid {
+  width: 62px;
+  height: 62px;
+  border-color: rgba(168, 85, 247, 0.35);
+  animation: tyRotateRingRev 14s linear infinite;
+}
+
+.ring-inner {
+  width: 46px;
+  height: 46px;
+  border-color: rgba(48, 209, 88, 0.4);
+  animation: tyRotateRing 8s linear infinite;
+}
+
+.ty-core-orb {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(41, 151, 255, 0.3) 0%, rgba(15, 23, 42, 0.9) 70%);
+  border: 1px solid rgba(41, 151, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 16px rgba(41, 151, 255, 0.4);
+}
+
+@keyframes tyRotateRing {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes tyRotateRingRev {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
+}
+
+/* Thank You Headline */
+.ty-heading {
+  font-size: clamp(3.2rem, 7.5vw, 5.8rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin: 0 0 0.75rem 0;
+  background: linear-gradient(180deg, #ffffff 25%, rgba(255, 255, 255, 0.4) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Supporting Question Lead */
+.ty-question-lead {
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 400;
+  color: var(--accent);
+  margin: 0 0 1.5rem 0;
+  letter-spacing: -0.01em;
+}
+
+/* Team Signature Card */
+.ty-signature-card {
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 1.25rem 2rem;
+  max-width: 680px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.ty-signature-card:hover {
+  border-color: rgba(41, 151, 255, 0.25);
+}
+
+.ty-team-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.ty-members-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ty-member-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.ty-member-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ty-member-roll {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+}
+
+.ty-member-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-subtle);
+}
+
+.ty-project-name {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* Return Button */
+.ty-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.ty-restart-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(41, 151, 255, 0.12);
+  border: 1px solid rgba(41, 151, 255, 0.3);
+  color: #fff;
+  padding: 0.55rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ty-restart-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(41, 151, 255, 0.4);
+}
+
+@media (max-width: 680px) {
+  .ty-members-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .ty-member-divider {
+    display: none;
+  }
+}

@@ -2,93 +2,92 @@ import './ReferencesSection.css'
 
 const REFS = [
   {
+    num: '01',
     title: 'Bureau of Indian Standards (BIS)',
     source: 'bis.gov.in',
-    desc: 'Primary regulatory authority and official repository for Indian Standards documents, product certification schemes, and ISI requirements.',
+    tag: 'Regulatory Authority',
+    desc: 'The official national standards body of India, providing authoritative standard specifications, certification schemes, and ISI mark compliance criteria.',
     icon: '🏛️',
   },
   {
+    num: '02',
     title: 'Ollama — Local LLM Inference Engine',
     source: 'ollama.com',
-    desc: 'High-performance local inference runtime enabling secure, offline execution of open-source models without third-party cloud data transmission.',
+    tag: 'Private AI Runtime',
+    desc: 'High-performance local inference framework enabling privacy-first, on-premises execution of language models without cloud API dependencies or sensitive data leakage.',
     icon: '💻',
   },
   {
-    title: 'Retrieval-Augmented Generation for NLP',
-    source: 'Lewis et al., 2020',
-    desc: 'Foundational research establishing retrieval-augmented generation to ground language model generations in validated document collections.',
+    num: '03',
+    title: 'Retrieval-Augmented Generation for NLP Tasks',
+    source: 'Lewis et al., 2020 (Meta AI / arXiv:2005.11401)',
+    tag: 'Foundational Paper',
+    desc: 'Seminal research establishing RAG architecture to combine pre-trained parametric models with non-parametric document retrieval, eliminating factual hallucination.',
     icon: '📄',
   },
   {
-    title: 'Indian Standards Portal & Catalogs',
-    source: 'BIS Standards Online',
-    desc: 'The authoritative document corpus and classification indices utilized for vector embedding and semantic retrieval matching.',
+    num: '04',
+    title: 'Indian Standards Portal & National Catalogs',
+    source: 'BIS Standards Online Directory',
+    tag: 'Corpus Knowledge Base',
+    desc: 'The structured corpus of Indian Standards, testing methods, product specifications, and regulatory amendments indexed for semantic retrieval.',
     icon: '📚',
   },
 ]
 
-export default function ReferencesSection({ onReturnToTop }) {
+export default function ReferencesSection() {
   return (
     <section className="ref-section">
       <div className="ref-container">
-        <div className="ref-split-grid">
-          {/* Left Column: Research Sources */}
-          <div className="ref-sources-col">
-            <div className="ref-header">
-              <div className="ref-badge-group">
-                <span className="ref-eyebrow">Research &amp; References</span>
-              </div>
-              <h2 className="ref-heading">Foundational Literature &amp; Standards Corpus</h2>
-            </div>
+        {/* Header */}
+        <div className="ref-header">
+          <div className="ref-badge-group">
+            <span className="ref-eyebrow">Research &amp; References</span>
+            <span className="ref-subbadge">07 · Technical Foundations</span>
+          </div>
+          <h2 className="ref-heading">Foundational Literature &amp; Standards Corpus</h2>
+          <p className="ref-sub">
+            Authoritative regulatory sources, academic literature, and open-source infrastructure grounding the assistant.
+          </p>
+        </div>
 
-            <ul className="ref-list">
-              {REFS.map((r, i) => (
-                <li className="ref-item" key={i}>
-                  <div className="ref-item-top">
-                    <div className="ref-item-title-row">
-                      <span className="ref-item-icon">{r.icon}</span>
-                      <h3 className="ref-item-title">{r.title}</h3>
-                    </div>
-                    <span className="ref-item-source">{r.source}</span>
+        {/* 2x2 References Grid */}
+        <div className="ref-grid-2x2">
+          {REFS.map((r) => (
+            <div className="ref-card" key={r.title}>
+              <div className="rc-top">
+                <div className="rc-title-row">
+                  <span className="rc-icon">{r.icon}</span>
+                  <div>
+                    <span className="rc-num">{r.num}</span>
+                    <h3 className="rc-title">{r.title}</h3>
                   </div>
-                  <p className="ref-item-desc">{r.desc}</p>
-                </li>
-              ))}
-            </ul>
-
-            <p className="ref-note">
-              * Additional references, benchmark evaluations, and regulatory documentation to be updated during the hackathon development phase.
-            </p>
-          </div>
-
-          {/* Right Column: Cinematic Closing & Team Information */}
-          <div className="ref-closing-col">
-            <div className="ref-closing-card">
-              <div className="ref-closing-badge">
-                <span>Smart India Hackathon 2026</span>
-              </div>
-
-              <h1 className="ref-thank">Thank You</h1>
-
-              <div className="ref-closing-info">
-                <p className="ref-team-name">Team Haxtrea</p>
-                <div className="ref-team-members">
-                  <span>Tuhin Majumdar (25012000072)</span>
-                  <span className="ref-dot-sep">·</span>
-                  <span>Aaryava Gupta (25012010002)</span>
                 </div>
-                <p className="ref-ps">
-                  Problem Statement SIH26107 — AI-powered Intelligent Assistant for Indian Standards &amp; BIS Services
-                </p>
+                <span className="rc-tag">{r.tag}</span>
               </div>
 
-              {onReturnToTop && (
-                <button className="ref-top-btn" onClick={onReturnToTop}>
-                  ↑ Return to Beginning
-                </button>
-              )}
+              <p className="rc-desc">{r.desc}</p>
+
+              <div className="rc-footer">
+                <span className="rc-source-label">Source / Origin:</span>
+                <span className="rc-source-val">{r.source}</span>
+              </div>
             </div>
+          ))}
+        </div>
+
+        {/* Research Scope Strip */}
+        <div className="ref-scope-strip">
+          <div className="rss-left">
+            <span className="rss-dot" />
+            <span className="rss-title">Literature &amp; Regulatory Alignment:</span>
+            <span className="rss-text">
+              Zero hallucination guarantee via deterministic document citation matching &amp; verified standards catalog indexing.
+            </span>
           </div>
+          <span className="rss-note">
+            * Benchmark evaluations and expanded citation corpora to be finalized during development.
+          </span>
         </div>
       </div>
     </section>

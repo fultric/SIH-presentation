@@ -9,6 +9,7 @@ import TechStackSection from './sections/TechStackSection'
 import FeasibilitySection from './sections/FeasibilitySection'
 import ImpactSection from './sections/ImpactSection'
 import ReferencesSection from './sections/ReferencesSection'
+import ThankYouSection from './sections/ThankYouSection'
 import './App.css'
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
@@ -21,6 +22,7 @@ const SECTIONS = [
   { id: 'sec-feasibility', label: '05 · Feasibility', name: 'Feasibility & Viability' },
   { id: 'sec-impact', label: '06 · Impact', name: 'Impact & Benefits' },
   { id: 'sec-references', label: '07 · References', name: 'Research & References' },
+  { id: 'sec-thankyou', label: '08 · Thank You', name: 'Thank You' },
 ]
 
 function App() {
@@ -324,7 +326,7 @@ function App() {
         </div>
       </div>
 
-      {/* ── Viewport-Fitted Presentation Sections (7 Sections Total) ── */}
+      {/* ── Viewport-Fitted Presentation Sections (8 Sections Total) ── */}
       <div ref={(el) => assignRef(el, 0)} id="sec-hero">
         <HeroSection />
       </div>
@@ -344,7 +346,10 @@ function App() {
         <ImpactSection />
       </div>
       <div ref={(el) => assignRef(el, 6)} id="sec-references">
-        <ReferencesSection onReturnToTop={() => transitionToSection(0)} />
+        <ReferencesSection />
+      </div>
+      <div ref={(el) => assignRef(el, 7)} id="sec-thankyou">
+        <ThankYouSection onReturnToTop={() => transitionToSection(0)} />
       </div>
     </div>
   )
