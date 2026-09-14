@@ -21,18 +21,13 @@ const POINTS = [
   },
 ]
 
-export default function SolutionSection({ subStep = 0 }) {
-  const isRevealed = subStep >= 1
-
+export default function SolutionSection() {
   return (
     <section className="sol-section">
       <div className="sol-container">
         <div className="sol-header">
           <div className="sol-badge-group">
             <span className="sol-eyebrow">Proposed Solution</span>
-            <span className="sol-substep-pill">
-              {subStep === 0 ? 'Stage 1 · Overview' : 'Stage 2 · Detailed Pillars'}
-            </span>
           </div>
           <h2 className="sol-heading">
             AI&#8209;powered Intelligent Assistant for Indian&nbsp;Standards
@@ -44,10 +39,10 @@ export default function SolutionSection({ subStep = 0 }) {
           </div>
         </div>
 
-        {/* 3 Solution Cards — Side by Side on Desktop */}
-        <div className={`sol-cards-grid ${isRevealed ? 'revealed' : 'initial'}`}>
+        {/* 3 Solution Cards — Fully Visible Side by Side on Desktop */}
+        <div className="sol-cards-grid revealed">
           {POINTS.map((p, i) => (
-            <article className={`sol-card sol-card-${i} ${isRevealed ? 'active' : ''}`} key={i}>
+            <article className={`sol-card sol-card-${i} active`} key={i}>
               <div className="sol-card-top">
                 <span className="sol-card-icon">{p.icon}</span>
                 <span className="sol-card-tag">{p.tag}</span>

@@ -1,5 +1,5 @@
 /* =========================================================
-   ImpactSection.css — Viewport-Fitted Staged Presentation
+   ImpactSection.css — Unified Viewport-Fitted 2-Column Layout
    ========================================================= */
 
 .imp-section {
@@ -17,10 +17,10 @@
 
 .imp-container {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1320px;
   height: 100%;
   max-height: 100%;
-  padding: 2rem clamp(1.5rem, 3.5vw, 4rem);
+  padding: 1.75rem clamp(1.2rem, 3vw, 3rem);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -35,7 +35,7 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .imp-eyebrow {
@@ -46,20 +46,8 @@
   color: var(--accent);
 }
 
-.imp-substep-pill {
-  font-size: 0.625rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-}
-
 .imp-heading {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
   font-weight: 700;
   letter-spacing: -0.025em;
   color: var(--text-primary);
@@ -67,124 +55,143 @@
   line-height: 1.15;
 }
 
-/* Tab indicator */
-.imp-stage-switcher {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+/* 2-Column Layout */
+.imp-split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.08fr;
+  gap: clamp(1.25rem, 2.5vw, 2.2rem);
+  width: 100%;
+  align-items: stretch;
 }
 
-.imp-tab {
-  background: rgba(255, 255, 255, 0.03);
+.imp-col {
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 8px;
-  padding: 0.35rem 0.8rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  font-family: 'Inter', sans-serif;
-  cursor: default;
-  transition: all 0.3s ease;
+  border-radius: 16px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.imp-tab.active {
-  background: rgba(41, 151, 255, 0.12);
-  border-color: rgba(41, 151, 255, 0.3);
+.imp-col-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.imp-col-tag {
+  font-size: 0.8rem;
+  font-weight: 600;
   color: var(--accent);
 }
 
-/* Stage 1: Audience Grid (4 columns) */
-.imp-aud-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.2rem;
-  animation: impFadeIn 0.35s var(--ease-smooth);
+.imp-col-sub {
+  font-size: 0.6875rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
-.imp-aud-item {
-  padding: 1.5rem 1.25rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 14px;
+/* Left: Audience Stack */
+.imp-cards-stack {
   display: flex;
   flex-direction: column;
-  transition: all 0.35s var(--ease-smooth);
+  gap: 0.55rem;
+  flex: 1;
 }
 
-.imp-aud-item:hover {
-  border-color: rgba(41, 151, 255, 0.3);
-  transform: translateY(-2px);
+.imp-aud-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.7rem 0.85rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  transition: all 0.3s ease;
 }
 
-.imp-card-icon {
-  font-size: 1.3rem;
-  margin-bottom: 0.6rem;
+.imp-aud-card:hover {
+  border-color: rgba(41, 151, 255, 0.25);
+  background: rgba(41, 151, 255, 0.04);
 }
 
-.imp-aud-title {
-  font-size: 0.95rem;
+.imp-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  padding-top: 0.1rem;
+}
+
+.imp-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.imp-card-title {
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin: 0 0 0.5rem 0;
-  line-height: 1.3;
+  margin: 0 0 0.15rem 0;
 }
 
-.imp-aud-desc {
-  font-size: 0.8125rem;
-  line-height: 1.55;
+.imp-card-desc {
+  font-size: 0.775rem;
+  line-height: 1.4;
   color: var(--text-secondary);
   margin: 0;
 }
 
-/* Stage 2: Benefits Grid (3 columns, 2 rows) */
-.imp-ben-grid {
+/* Right: Benefits 2x3 Grid */
+.imp-benefits-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.1rem;
-  animation: impFadeIn 0.35s var(--ease-smooth);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+  flex: 1;
 }
 
 .imp-ben-card {
-  padding: 1.25rem 1.25rem;
-  background: var(--bg-card);
+  padding: 0.8rem 0.85rem;
+  background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-subtle);
-  border-radius: 14px;
-  transition: all 0.35s var(--ease-smooth);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
 }
 
 .imp-ben-card:hover {
-  border-color: rgba(41, 151, 255, 0.3);
-  transform: translateY(-2px);
+  border-color: rgba(41, 151, 255, 0.25);
+  background: rgba(41, 151, 255, 0.04);
+}
+
+.ibc-top {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.25rem;
 }
 
 .imp-ben-title {
-  font-size: 0.95rem;
+  font-size: 0.825rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin: 0 0 0.35rem 0;
+  margin: 0;
 }
 
 .imp-ben-desc {
-  font-size: 0.8rem;
-  line-height: 1.5;
+  font-size: 0.75rem;
+  line-height: 1.4;
   color: var(--text-secondary);
   margin: 0;
 }
 
-@keyframes impFadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 900px) {
-  .imp-aud-grid {
+@media (max-width: 1024px) {
+  .imp-split-grid {
     grid-template-columns: 1fr;
     overflow-y: auto;
-    max-height: 60vh;
-  }
-  .imp-ben-grid {
-    grid-template-columns: 1fr;
-    overflow-y: auto;
-    max-height: 60vh;
+    max-height: 70vh;
   }
 }

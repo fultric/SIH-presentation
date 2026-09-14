@@ -39,25 +39,20 @@ const COLUMNS = [
   },
 ]
 
-export default function FeasibilitySection({ subStep = 0 }) {
-  const isRevealed = subStep >= 1
-
+export default function FeasibilitySection() {
   return (
     <section className="feas-section">
       <div className="feas-container">
         <div className="feas-header">
           <div className="feas-badge-group">
             <span className="feas-eyebrow">Feasibility &amp; Viability</span>
-            <span className="feas-substep-pill">
-              {subStep === 0 ? 'Stage 1 · Overview' : 'Stage 2 · Detailed Matrix'}
-            </span>
           </div>
           <h2 className="feas-heading">Proposed Analysis &amp; Risk Mitigation</h2>
         </div>
 
-        <div className={`feas-grid ${isRevealed ? 'revealed' : 'initial'}`}>
+        <div className="feas-grid revealed">
           {COLUMNS.map((col) => (
-            <div className={`feas-col feas-col--${col.accent} ${isRevealed ? 'active' : ''}`} key={col.title}>
+            <div className={`feas-col feas-col--${col.accent} active`} key={col.title}>
               <div className="feas-col-head">
                 <span className="feas-col-icon">{col.icon}</span>
                 <h3 className="feas-col-title">{col.title}</h3>

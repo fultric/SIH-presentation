@@ -1,5 +1,5 @@
 /* =========================================================
-   ReferencesSection.css — Viewport-Fitted Staged Presentation
+   ReferencesSection.css — Unified Viewport-Fitted Presentation
    ========================================================= */
 
 .ref-section {
@@ -17,33 +17,40 @@
 
 .ref-container {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1320px;
   height: 100%;
   max-height: 100%;
-  padding: 2rem clamp(1.5rem, 3.5vw, 4rem);
+  padding: 1.75rem clamp(1.2rem, 3vw, 3rem);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-/* Stage 1: Sources */
-.ref-sources-view {
+/* 2-Column Split: Sources Left, Closing Right */
+.ref-split-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  width: 100%;
+  align-items: center;
+}
+
+/* Left Column */
+.ref-sources-col {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  animation: refFadeIn 0.35s var(--ease-smooth);
 }
 
 .ref-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .ref-badge-group {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
 }
 
 .ref-eyebrow {
@@ -54,20 +61,8 @@
   color: var(--accent);
 }
 
-.ref-substep-pill {
-  font-size: 0.625rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-}
-
 .ref-heading {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
   font-weight: 700;
   letter-spacing: -0.025em;
   color: var(--text-primary);
@@ -78,14 +73,14 @@
 .ref-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.75rem 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.55rem;
 }
 
 .ref-item {
-  padding: 1rem 1.25rem;
+  padding: 0.75rem 1rem;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: 12px;
@@ -101,22 +96,22 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 1rem;
-  margin-bottom: 0.3rem;
+  gap: 0.75rem;
+  margin-bottom: 0.2rem;
 }
 
 .ref-item-title-row {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
 }
 
 .ref-item-icon {
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 .ref-item-title {
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0;
@@ -124,54 +119,65 @@
 
 .ref-item-source {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--accent);
   flex-shrink: 0;
 }
 
 .ref-item-desc {
-  font-size: 0.8125rem;
-  line-height: 1.5;
+  font-size: 0.775rem;
+  line-height: 1.4;
   color: var(--text-secondary);
   margin: 0;
 }
 
 .ref-note {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--text-tertiary);
   font-style: italic;
   margin: 0;
 }
 
-/* Stage 2: Closing */
-.ref-closing-view {
+/* Right Column: Closing Card */
+.ref-closing-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ref-closing-card {
+  width: 100%;
+  background: radial-gradient(circle at 50% 30%, rgba(41, 151, 255, 0.08) 0%, rgba(10, 10, 10, 0.95) 75%);
+  border: 1px solid rgba(41, 151, 255, 0.2);
+  border-radius: 20px;
+  padding: 2.2rem 1.8rem;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
-  animation: refFadeIn 0.4s var(--ease-smooth);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
 }
 
 .ref-closing-badge {
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
-  padding: 0.35rem 0.85rem;
+  padding: 0.3rem 0.75rem;
   border-radius: 6px;
   background: rgba(41, 151, 255, 0.1);
   border: 1px solid rgba(41, 151, 255, 0.25);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .ref-thank {
-  font-size: clamp(3.5rem, 9vw, 6.5rem);
+  font-size: clamp(3rem, 6vw, 4.8rem);
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1;
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 1rem 0;
   background: linear-gradient(180deg, #ffffff 20%, rgba(255, 255, 255, 0.4) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -182,11 +188,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .ref-team-name {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -195,12 +201,12 @@
 }
 
 .ref-team-members {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 
 .ref-dot-sep {
@@ -208,20 +214,20 @@
 }
 
 .ref-ps {
-  font-size: 0.875rem;
+  font-size: 0.775rem;
   color: var(--text-tertiary);
-  max-width: 550px;
-  line-height: 1.45;
-  margin: 0.25rem 0 1.5rem 0;
+  max-width: 420px;
+  line-height: 1.4;
+  margin: 0.2rem 0 1.25rem 0;
 }
 
 .ref-top-btn {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-medium);
-  color: var(--text-primary);
-  padding: 0.6rem 1.4rem;
+  background: rgba(41, 151, 255, 0.15);
+  border: 1px solid rgba(41, 151, 255, 0.35);
+  color: #fff;
+  padding: 0.55rem 1.3rem;
   border-radius: 8px;
-  font-size: 0.8125rem;
+  font-size: 0.775rem;
   font-weight: 600;
   font-family: 'Inter', sans-serif;
   cursor: pointer;
@@ -231,11 +237,14 @@
 .ref-top-btn:hover {
   background: var(--accent);
   border-color: var(--accent);
-  color: #fff;
   transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(41, 151, 255, 0.4);
 }
 
-@keyframes refFadeIn {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
+@media (max-width: 1024px) {
+  .ref-split-grid {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+    max-height: 70vh;
+  }
 }

@@ -205,55 +205,36 @@
   transform: none;
 }
 
-/* Stepper Indicator */
+/* Section Indicator */
 .pres-stepper-indicator {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0 0.8rem;
+  gap: 0.65rem;
+  padding: 0 0.85rem;
 }
 
-.pres-section-pill {
+.pres-sec-index {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--accent);
-  background: rgba(41, 151, 255, 0.1);
-  padding: 0.25rem 0.55rem;
+  background: rgba(41, 151, 255, 0.12);
+  padding: 0.2rem 0.55rem;
   border-radius: 6px;
 }
 
-.pres-substep-dots {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.substep-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
-}
-
-.substep-dot.active {
-  background: var(--accent);
-  transform: scale(1.3);
-  box-shadow: 0 0 6px rgba(41, 151, 255, 0.6);
-}
-
-.substep-dot.completed {
-  background: rgba(41, 151, 255, 0.5);
+.pres-indicator-divider {
+  width: 1px;
+  height: 14px;
+  background: var(--border-subtle);
 }
 
 .pres-step-name {
-  font-size: 0.7rem;
-  font-weight: 500;
-  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
   letter-spacing: 0.02em;
-  min-width: 110px;
-  text-align: left;
+  white-space: nowrap;
 }
 
 .pres-divider {

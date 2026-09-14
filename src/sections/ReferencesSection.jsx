@@ -14,7 +14,7 @@ const REFS = [
     icon: '💻',
   },
   {
-    title: 'Retrieval-Augmented Generation for Knowledge-Intensive NLP',
+    title: 'Retrieval-Augmented Generation for NLP',
     source: 'Lewis et al., 2020',
     desc: 'Foundational research establishing retrieval-augmented generation to ground language model generations in validated document collections.',
     icon: '📄',
@@ -27,19 +27,16 @@ const REFS = [
   },
 ]
 
-export default function ReferencesSection({ subStep = 0, onReturnToTop }) {
-  const showClosing = subStep >= 1
-
+export default function ReferencesSection({ onReturnToTop }) {
   return (
     <section className="ref-section">
       <div className="ref-container">
-        {!showClosing ? (
-          /* Stage 1: Sources & Academic References */
-          <div className="ref-sources-view">
+        <div className="ref-split-grid">
+          {/* Left Column: Research Sources */}
+          <div className="ref-sources-col">
             <div className="ref-header">
               <div className="ref-badge-group">
                 <span className="ref-eyebrow">Research &amp; References</span>
-                <span className="ref-substep-pill">Stage 1 · Verified Sources</span>
               </div>
               <h2 className="ref-heading">Foundational Literature &amp; Standards Corpus</h2>
             </div>
@@ -63,34 +60,36 @@ export default function ReferencesSection({ subStep = 0, onReturnToTop }) {
               * Additional references, benchmark evaluations, and regulatory documentation to be updated during the hackathon development phase.
             </p>
           </div>
-        ) : (
-          /* Stage 2: Cinematic Thank You Closing */
-          <div className="ref-closing-view">
-            <div className="ref-closing-badge">
-              <span>Smart India Hackathon 2026</span>
-            </div>
 
-            <h1 className="ref-thank">Thank You</h1>
-
-            <div className="ref-closing-info">
-              <p className="ref-team-name">Team Haxtrea</p>
-              <div className="ref-team-members">
-                <span>Tuhin Majumdar (25012000072)</span>
-                <span className="ref-dot-sep">·</span>
-                <span>Aaryava Gupta (25012010002)</span>
+          {/* Right Column: Cinematic Closing & Team Information */}
+          <div className="ref-closing-col">
+            <div className="ref-closing-card">
+              <div className="ref-closing-badge">
+                <span>Smart India Hackathon 2026</span>
               </div>
-              <p className="ref-ps">
-                Problem Statement SIH26107 — AI-powered Intelligent Assistant for Indian Standards &amp; BIS Services
-              </p>
-            </div>
 
-            {onReturnToTop && (
-              <button className="ref-top-btn" onClick={onReturnToTop}>
-                ↑ Return to Beginning
-              </button>
-            )}
+              <h1 className="ref-thank">Thank You</h1>
+
+              <div className="ref-closing-info">
+                <p className="ref-team-name">Team Haxtrea</p>
+                <div className="ref-team-members">
+                  <span>Tuhin Majumdar (25012000072)</span>
+                  <span className="ref-dot-sep">·</span>
+                  <span>Aaryava Gupta (25012010002)</span>
+                </div>
+                <p className="ref-ps">
+                  Problem Statement SIH26107 — AI-powered Intelligent Assistant for Indian Standards &amp; BIS Services
+                </p>
+              </div>
+
+              {onReturnToTop && (
+                <button className="ref-top-btn" onClick={onReturnToTop}>
+                  ↑ Return to Beginning
+                </button>
+              )}
+            </div>
           </div>
-        )}
+        </div>
       </div>
     </section>
   )

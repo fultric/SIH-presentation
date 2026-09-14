@@ -4,87 +4,87 @@ const AUDIENCE = [
   {
     icon: '🏭',
     title: 'Industries & Manufacturers',
-    desc: 'Manufacturing, construction, food processing, and electronics sectors requiring BIS compliance can instantly locate standards, testing protocols, and certification requirements.',
+    desc: 'Instant access to BIS standards, mandatory testing procedures, and certification guidelines for compliance.',
   },
   {
     icon: '🛒',
-    title: 'Everyday Consumers',
-    desc: 'Citizens can verify product certifications, look up mandatory ISI marks, and understand safety standards before purchasing packaged goods or appliances.',
+    title: 'Consumers & Citizens',
+    desc: 'Quick verification of genuine ISI marks, product quality standards, and consumer safety requirements.',
   },
   {
     icon: '🏛️',
     title: 'Government & Regulators',
-    desc: 'Streamlined access to standards clauses for regulatory enforcement, public procurement specifications, and policy auditing.',
+    desc: 'Rapid retrieval of regulatory clauses for public procurement, market surveillance, and standards auditing.',
   },
   {
     icon: '🚀',
     title: 'Startups & MSMEs',
-    desc: 'Small businesses without dedicated legal or compliance teams gain accessible, AI-guided navigation through complex Indian Standards catalogs.',
+    desc: 'Affordable, AI-guided compliance navigation without the prohibitive costs of specialized legal consultants.',
   },
 ]
 
 const BENEFITS = [
-  { icon: '🌐', title: 'Accessibility', desc: 'Democratizes access to Indian Standards with plain-language conversational querying.' },
-  { icon: '⚡', title: 'Efficiency', desc: 'Accelerates manual standards catalog search from hours of document flipping to instant answers.' },
-  { icon: '🔒', title: 'Privacy & Offline', desc: 'Runs locally with Ollama — proprietary company queries and confidential designs stay on-premises.' },
-  { icon: '🎯', title: 'Reliability', desc: 'RAG eliminates hallucinations by restricting answers strictly to verified BIS passages.' },
-  { icon: '💰', title: 'Cost-Effective', desc: '100% open-source foundation removes recurring cloud LLM API costs for developers and institutions.' },
-  { icon: '📈', title: 'Scalable Corpus', desc: 'Document ingestion pipeline scales smoothly as newer BIS amendments and notifications release.' },
+  { icon: '🌐', title: 'Democratized Access', desc: 'Plain-language querying eliminates jargon barriers for non-technical users.' },
+  { icon: '⚡', title: 'Accelerated Search', desc: 'Reduces manual standards discovery from hours of catalog flipping to seconds.' },
+  { icon: '🔒', title: 'Privacy & Offline', desc: '100% on-premise Ollama inference prevents sensitive industry query leaks.' },
+  { icon: '🎯', title: 'Zero Hallucination', desc: 'Strict RAG grounding ensures answers are tied directly to cited BIS clauses.' },
+  { icon: '💰', title: 'Zero Cloud Cost', desc: 'Open-source local stack removes recurring third-party API subscription costs.' },
+  { icon: '📈', title: 'Scalable Corpus', desc: 'Modular document architecture smoothly accommodates new BIS amendments.' },
 ]
 
-export default function ImpactSection({ subStep = 0 }) {
-  const showBenefits = subStep >= 1
-
+export default function ImpactSection() {
   return (
     <section className="imp-section">
       <div className="imp-container">
         <div className="imp-header">
           <div className="imp-badge-group">
             <span className="imp-eyebrow">Impact &amp; Benefits</span>
-            <span className="imp-substep-pill">
-              {!showBenefits ? 'Stage 1 · Target Audience' : 'Stage 2 · Key Benefits'}
-            </span>
           </div>
           <h2 className="imp-heading">
-            {!showBenefits
-              ? 'Empowering Industries, Consumers & Regulatory Ecosystem'
-              : 'Measurable Value & Strategic Advantages'}
+            Measurable Ecosystem Value &amp; Strategic Advantages
           </h2>
         </div>
 
-        {/* Tab-like Segmented Switch for Stage 1 & 2 */}
-        <div className="imp-stage-switcher">
-          <button className={`imp-tab ${!showBenefits ? 'active' : ''}`}>
-            👥 1. Target Audience Impact
-          </button>
-          <button className={`imp-tab ${showBenefits ? 'active' : ''}`}>
-            ✨ 2. Quantifiable Benefits
-          </button>
-        </div>
+        {/* Unified 2-Column Layout: Target Audience + Key Benefits */}
+        <div className="imp-split-grid">
+          {/* Left Column: Target Audience */}
+          <div className="imp-col imp-audience-col">
+            <div className="imp-col-header">
+              <span className="imp-col-tag">👥 Target Audience Impact</span>
+              <span className="imp-col-sub">Who Benefits</span>
+            </div>
+            <div className="imp-cards-stack">
+              {AUDIENCE.map((a) => (
+                <div className="imp-aud-card" key={a.title}>
+                  <span className="imp-icon">{a.icon}</span>
+                  <div className="imp-card-content">
+                    <h3 className="imp-card-title">{a.title}</h3>
+                    <p className="imp-card-desc">{a.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-        {!showBenefits ? (
-          /* Stage 1: Target Audience Grid (4 items, 4-column) */
-          <div className="imp-aud-grid">
-            {AUDIENCE.map((a) => (
-              <div className="imp-aud-item" key={a.title}>
-                <span className="imp-card-icon">{a.icon}</span>
-                <h3 className="imp-aud-title">{a.title}</h3>
-                <p className="imp-aud-desc">{a.desc}</p>
-              </div>
-            ))}
+          {/* Right Column: Key Benefits */}
+          <div className="imp-col imp-benefits-col">
+            <div className="imp-col-header">
+              <span className="imp-col-tag">✨ Quantifiable Advantages</span>
+              <span className="imp-col-sub">Key Benefits</span>
+            </div>
+            <div className="imp-benefits-grid">
+              {BENEFITS.map((b) => (
+                <div className="imp-ben-card" key={b.title}>
+                  <div className="ibc-top">
+                    <span className="imp-icon">{b.icon}</span>
+                    <h3 className="imp-ben-title">{b.title}</h3>
+                  </div>
+                  <p className="imp-ben-desc">{b.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        ) : (
-          /* Stage 2: Key Benefits Grid (6 items, 3x2 grid) */
-          <div className="imp-ben-grid">
-            {BENEFITS.map((b) => (
-              <div className="imp-ben-card" key={b.title}>
-                <span className="imp-card-icon">{b.icon}</span>
-                <h3 className="imp-ben-title">{b.title}</h3>
-                <p className="imp-ben-desc">{b.desc}</p>
-              </div>
-            ))}
-          </div>
-        )}
+        </div>
       </div>
     </section>
   )
