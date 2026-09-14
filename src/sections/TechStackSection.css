@@ -1,0 +1,367 @@
+/* =========================================================
+   TechStackSection.css — Viewport-Fitted Technology Showcase
+   ========================================================= */
+
+.techstack-section {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.techstack-container {
+  width: 100%;
+  max-width: 1340px;
+  height: 100%;
+  max-height: 100%;
+  padding: 1.5rem clamp(1.2rem, 3vw, 3rem);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Header Block */
+.techstack-header {
+  margin-bottom: 1.25rem;
+}
+
+.techstack-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.35rem;
+}
+
+.techstack-badge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  background: rgba(41, 151, 255, 0.1);
+  border: 1px solid rgba(41, 151, 255, 0.25);
+  color: var(--accent);
+}
+
+.techstack-subbadge {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.techstack-title {
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  margin: 0 0 0.3rem 0;
+  line-height: 1.15;
+}
+
+.techstack-sub {
+  font-size: clamp(0.8125rem, 1.1vw, 0.925rem);
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 720px;
+}
+
+/* ──── 3-Column Technology Grid ──── */
+.techstack-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 0.95fr;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Category Pods */
+.tech-category-pod {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 18px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.35s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-category-pod:hover {
+  border-color: var(--border-medium);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+}
+
+/* Color Accents per Pod */
+.pod--blue {
+  border-top: 3px solid var(--accent);
+}
+.pod--blue .pod-badge {
+  color: var(--accent);
+  background: rgba(41, 151, 255, 0.1);
+  border: 1px solid rgba(41, 151, 255, 0.25);
+}
+.pod--blue .tic-dot {
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+.pod--blue .tech-item-card:hover {
+  border-color: rgba(41, 151, 255, 0.35);
+  background: rgba(41, 151, 255, 0.04);
+}
+
+.pod--purple {
+  border-top: 3px solid var(--accent-purple);
+}
+.pod--purple .pod-badge {
+  color: var(--accent-purple);
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+}
+.pod--purple .tic-dot {
+  background: var(--accent-purple);
+  box-shadow: 0 0 6px var(--accent-purple);
+}
+.pod--purple .tech-item-card:hover {
+  border-color: rgba(168, 85, 247, 0.35);
+  background: rgba(168, 85, 247, 0.04);
+}
+
+.pod--green {
+  border-top: 3px solid var(--accent-green);
+}
+.pod--green .pod-badge {
+  color: var(--accent-green);
+  background: rgba(48, 209, 88, 0.1);
+  border: 1px solid rgba(48, 209, 88, 0.25);
+}
+.pod--green .tic-dot {
+  background: var(--accent-green);
+  box-shadow: 0 0 6px var(--accent-green);
+}
+.pod--green .tech-item-card:hover {
+  border-color: rgba(48, 209, 88, 0.35);
+  background: rgba(48, 209, 88, 0.04);
+}
+
+/* Pod Header */
+.pod-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.pod-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.pod-icon {
+  font-size: 1.25rem;
+}
+
+.pod-badge {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 0.15rem;
+}
+
+.pod-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.pod-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-tertiary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  padding: 0.2rem 0.5rem;
+  border-radius: 20px;
+}
+
+.pod-desc {
+  font-size: 0.775rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  margin: 0 0 0.85rem 0;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Technologies List inside Pod */
+.pod-tech-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  flex: 1;
+}
+
+.tech-item-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 0.65rem 0.85rem;
+  transition: all 0.25s var(--ease-smooth);
+}
+
+.tic-main-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.2rem;
+}
+
+.tic-name-group {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.tic-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tic-name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.tic-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem;
+  color: var(--text-tertiary);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.tic-role {
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.2rem;
+}
+
+.pod--purple .tic-role { color: var(--accent-purple); }
+.pod--green .tic-role { color: var(--accent-green); }
+
+.tic-detail {
+  font-size: 0.725rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  margin: 0 0 0.35rem 0;
+}
+
+.tic-snippet-box {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+}
+
+.tic-snippet-box code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem;
+  color: rgba(255, 255, 255, 0.75);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ──── Telemetry Footer Strip ──── */
+.techstack-telemetry-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 0.65rem 1.2rem;
+  margin-top: 1.25rem;
+}
+
+.telemetry-left {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.75rem;
+}
+
+.telemetry-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  animation: sDotPulse 1.4s infinite;
+}
+
+.telemetry-label {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.telemetry-sep {
+  color: var(--border-medium);
+}
+
+.telemetry-sub {
+  color: var(--text-secondary);
+  font-size: 0.725rem;
+}
+
+.telemetry-right {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.telemetry-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--accent);
+  background: rgba(41, 151, 255, 0.08);
+  border: 1px solid rgba(41, 151, 255, 0.2);
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 1080px) {
+  .techstack-grid {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+    max-height: 70vh;
+  }
+  .telemetry-sub {
+    display: none;
+  }
+}

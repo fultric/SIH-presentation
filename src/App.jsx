@@ -5,6 +5,7 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import HeroSection from './sections/HeroSection'
 import SolutionSection from './sections/SolutionSection'
 import TechnicalSection from './sections/TechnicalSection'
+import TechStackSection from './sections/TechStackSection'
 import FeasibilitySection from './sections/FeasibilitySection'
 import ImpactSection from './sections/ImpactSection'
 import ReferencesSection from './sections/ReferencesSection'
@@ -16,9 +17,10 @@ const SECTIONS = [
   { id: 'sec-hero', label: '01 · Title', name: 'Title Page' },
   { id: 'sec-solution', label: '02 · Solution', name: 'Proposed Solution' },
   { id: 'sec-technical', label: '03 · Technical', name: 'Technical Approach' },
-  { id: 'sec-feasibility', label: '04 · Feasibility', name: 'Feasibility & Viability' },
-  { id: 'sec-impact', label: '05 · Impact', name: 'Impact & Benefits' },
-  { id: 'sec-references', label: '06 · References', name: 'Research & References' },
+  { id: 'sec-techstack', label: '04 · Tech Stack', name: 'Technology Stack' },
+  { id: 'sec-feasibility', label: '05 · Feasibility', name: 'Feasibility & Viability' },
+  { id: 'sec-impact', label: '06 · Impact', name: 'Impact & Benefits' },
+  { id: 'sec-references', label: '07 · References', name: 'Research & References' },
 ]
 
 function App() {
@@ -106,7 +108,6 @@ function App() {
     if (isNavigatingRef.current) return
     const clampedIndex = Math.max(0, Math.min(targetIndex, SECTIONS.length - 1))
     if (clampedIndex === activeSection && sectionRefs.current[clampedIndex]) {
-      // Re-center in case of slight offset
       gsap.to(window, {
         scrollTo: { y: sectionRefs.current[clampedIndex], autoKill: false },
         duration: 0.5,
@@ -123,7 +124,6 @@ function App() {
     const tl = gsap.timeline({
       onComplete: () => {
         setActiveSection(clampedIndex)
-        // Reset currentEl transforms for future returns
         if (currentEl) {
           gsap.set(currentEl, { opacity: 1, scale: 1, y: 0 })
         }
@@ -324,7 +324,7 @@ function App() {
         </div>
       </div>
 
-      {/* ── Viewport-Fitted Presentation Sections ── */}
+      {/* ── Viewport-Fitted Presentation Sections (7 Sections Total) ── */}
       <div ref={(el) => assignRef(el, 0)} id="sec-hero">
         <HeroSection />
       </div>
@@ -334,13 +334,16 @@ function App() {
       <div ref={(el) => assignRef(el, 2)} id="sec-technical">
         <TechnicalSection isActive={activeSection === 2} />
       </div>
-      <div ref={(el) => assignRef(el, 3)} id="sec-feasibility">
+      <div ref={(el) => assignRef(el, 3)} id="sec-techstack">
+        <TechStackSection isActive={activeSection === 3} />
+      </div>
+      <div ref={(el) => assignRef(el, 4)} id="sec-feasibility">
         <FeasibilitySection />
       </div>
-      <div ref={(el) => assignRef(el, 4)} id="sec-impact">
+      <div ref={(el) => assignRef(el, 5)} id="sec-impact">
         <ImpactSection />
       </div>
-      <div ref={(el) => assignRef(el, 5)} id="sec-references">
+      <div ref={(el) => assignRef(el, 6)} id="sec-references">
         <ReferencesSection onReturnToTop={() => transitionToSection(0)} />
       </div>
     </div>
